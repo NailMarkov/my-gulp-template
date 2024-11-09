@@ -1,0 +1,43 @@
+{
+  "name": "my-gulp-template",
+  "version": "1.0.0",
+  "description": "Моя сборка Gulp",
+  "main": "index.js",
+  "scripts": {
+    "html": "html-validator",
+    "dev": "gulp dev",
+    "eslint": "eslint src/js/",
+    "stylelint": "stylelint \"src/sass/**/*.scss\""
+  },
+  "author": "Markov Nail",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "autoprefixer": "^10.4.20",
+    "browser-sync": "^3.0.3",
+    "del": "^7.1.0",
+    "eslint": "^9.11.1",
+    "globals": "^15.10.0",
+    "gulp": "^5.0.0",
+    "gulp-copy": "^5.0.0",
+    "gulp-csso": "^4.0.1",
+    "gulp-html-bem-validator": "^1.0.5",
+    "gulp-imagemin": "^9.1.0",
+    "gulp-notify": "^5.0.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-pug": "^5.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-svgstore": "^9.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "pug": "^3.0.3",
+    "sass": "^1.79.4",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.4",
+    "w3c-html-validator": "^1.8.2"
+  },
+  "type": "module"
+}
