@@ -4,15 +4,12 @@ import {deleteAsync} from 'del';
 
 // Import from files
 
-import {pathBuild, pathSrc} from './gulp/config.js';
+import {pathBuild, pathSrc} from './gulp/conf.js';
 import {pug} from './gulp/compileHtml.js';
-import {style} from './gulp/compileStyle.js';
-import {copyFiles, copyImages} from './gulp/copy.js';
-import {sprite} from './gulp/optimizeImages.js';
-
-// Options
-
-// const streamStyle = () => style().pipe(server.stream());
+import {styles} from './gulp/compileStyles.js';
+import {copy, copyImages} from './gulp/copyFiles.js';
+import {optimizeJpg, optimizePng, optimizeSvg, sprite} from './gulp/optimizeImages.js';
+import {js} from './gulp/compileScripts.js';
 
 // Clean
 
@@ -31,21 +28,17 @@ const syncServer = () => {
     ui: false,
   });
 
-  gulp.watch(`${pathSrc.src}/pug/**/*.pug`, gulp.series(pug, refresh));
-  gulp.watch(`${pathSrc.sass}/**/*.{scss,sass}`, style);
-  gulp.watch(`${pathSrc.font}/**`, copyFiles);
+  gulp.watch(`${pathSrc.src}/pug/**/*.pug`, pug);
+  gulp.watch(`${pathSrc.sass}/**/*.{scss,sass}`, styles);
+  gulp.watch(`${pathSrc.js}/**/*.js`, js);
+  gulp.watch(`${pathSrc.font}/**`, copy);
   gulp.watch(`${pathSrc.sprite}/*.svg`, sprite);
-  // gulp.watch(`${pathSource.data}/**/*.{js,json}`, gulp.series(copy, refresh));
-  // gulp.watch(`${pathSource.img}/**/*.svg`, gulp.series(copySvg, sprite, refresh));
-};
-
-const refresh = (done) => {
-  server.reload();
-  done();
+  gulp.watch(`${pathSrc.img}/**/*.{jpg,jpeg,png}`, copyImages);
 };
 
 // Tasks
 
-const dev = gulp.series(clean, copyFiles, sprite, copyImages, gulp.parallel(pug, style), syncServer);
+const dev = gulp.series(clean, copy, sprite, gulp.parallel(pug, styles, js), syncServer);
+const build = gulp.series(clean, copy, sprite, gulp.parallel(optimizeJpg, optimizePng, optimizeSvg, pug, styles, js), syncServer);
 
-export {dev, server};
+export {build, dev, server};
